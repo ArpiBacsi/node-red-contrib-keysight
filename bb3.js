@@ -334,7 +334,7 @@ module.exports = function (RED) {
                             break;
                         }
 
-                        let i = accData.indexOf("\r\n");
+                        let i = accData.indexOf("\n");
                         if (i == -1) {
                             break;
                         }
