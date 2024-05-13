@@ -1,4 +1,4 @@
-# Keysight node-red
+# node-red-contrib-keysight
 
 This is a fork of the node-red-contrib-bb3 package, modified to be compatible with Keysight products as well.
 The difference is between bb3 and Keysight at the query messages. The Keysight sendign the messages with \n instead of \r\n 
