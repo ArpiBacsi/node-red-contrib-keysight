@@ -13,6 +13,12 @@
   "keywords": [
     "Keysight"
   ],
+  "node-red": {
+    "version": ">=0.18.0",
+    "nodes": {
+      "Keysight": "bb3.js"
+    }
+  },
   "author": "ArpiBacsi",
   "license": "GPL-3.0-or-later",
   "bugs": {
