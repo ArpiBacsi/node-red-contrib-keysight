@@ -1,39 +1,22 @@
 {
-  "name": "ArpiBacsi/node-red-contrib-keysight",
-  "version": "0.1.0",
-  "description": "Node-RED nodes to talk to Keysight devices",
-  "dependencies": {},
+  "name": "red-contrib-keysight",
+  "version": "1.0.0",
+  "description": "Keysight node for Node-Red",
+  "main": "bb3.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ArpiBacsi/node-red-contrib-keysight.git"
   },
-  "license": "GPL-3.0-only",
   "keywords": [
-    "node-red",
-    "keysight"
+    "Keysight"
   ],
-  "node-red": {
-    "version": ">=0.18.0",
-    "nodes": {
-      "bb3": "bb3.js"
-    }
-  },
-  "engines": {
-    "node": ">=8.6.0"
-  },
-  "author": "bodi.rp@gmail.com",
-  "prettier": {
-    "printWidth": 160
-  },
-  "scripts": {
-    "publish": "npm publish --access public"
-  },
+  "author": "ArpiBacsi",
+  "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/ArpiBacsi/node-red-contrib-keysight/issues"
   },
-  "homepage": "https://github.com/ArpiBacsi/node-red-contrib-keysight#readme",
-  "main": "bb3.js",
-  "devDependencies": {
-    "@types/node": "^14.14.21"
-  }
+  "homepage": "https://github.com/ArpiBacsi/node-red-contrib-keysight#readme"
 }
