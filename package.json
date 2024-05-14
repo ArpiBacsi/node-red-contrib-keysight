@@ -1,16 +1,16 @@
 {
-  "name": "@eez-open/node-red-contrib-bb3",
-  "version": "0.8.0",
-  "description": "Node-RED nodes to talk to EEZ BB3",
+  "name": "ArpiBacsi/node-red-contrib-keysight",
+  "version": "0.1.0",
+  "description": "Node-RED nodes to talk to Keysight devices",
   "dependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eez-open/node-red-contrib-bb3.git"
+    "url": "git+https://github.com/ArpiBacsi/node-red-contrib-keysight.git"
   },
   "license": "GPL-3.0-only",
   "keywords": [
     "node-red",
-    "bb3"
+    "keysight"
   ],
   "node-red": {
     "version": ">=0.18.0",
@@ -21,7 +21,7 @@
   "engines": {
     "node": ">=8.6.0"
   },
-  "author": "Envox <eez@envox.hr>",
+  "author": "bodi.rp@gmail.com",
   "prettier": {
     "printWidth": 160
   },
@@ -29,9 +29,9 @@
     "publish": "npm publish --access public"
   },
   "bugs": {
-    "url": "https://github.com/eez-open/node-red-contrib-bb3/issues"
+    "url": "https://github.com/ArpiBacsi/node-red-contrib-keysight/issues"
   },
-  "homepage": "https://github.com/eez-open/node-red-contrib-bb3#readme",
+  "homepage": "https://github.com/ArpiBacsi/node-red-contrib-keysight#readme",
   "main": "bb3.js",
   "devDependencies": {
     "@types/node": "^14.14.21"
