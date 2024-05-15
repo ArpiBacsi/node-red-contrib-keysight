@@ -1,0 +1,417 @@
+<!--
+
+    keysight Connection config node
+
+-->
+
+<script type="text/javascript">
+    RED.nodes.registerType("keysight-connection", {
+        category: "config",
+        defaults: {
+            name: { value: "" },
+            host: { value: "localhost", required: true },
+            port: {
+                value: 1234,
+                required: true,
+                validate: RED.validators.number(),
+            },
+            autoConnect: {
+                value: false
+            }
+        },
+        label: function () {
+            return this.name || (this.host + ":" + this.port);
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="keysight-connection">
+    <div class="form-row">
+        <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-config-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-host">Host</label>
+        <input type="text" id="node-config-input-host" />
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-port">Port</label>
+        <input type="text" id="node-config-input-port" />
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-autoConnect">Auto connect</label>
+        <input type="checkbox" id="node-config-input-autoConnect" />
+    </div>
+</script>
+
+<!--
+
+    keysight Command node
+
+-->
+
+<script type="text/javascript">
+    RED.nodes.registerType("keysight-command", {
+        category: "keysight",
+        color: "#3FADB5",
+        defaults: {
+            name: { value: "" },
+            connection: { value: "", type: "keysight-connection", required: false },
+            connectionName: { value: "", required: false },
+            connectionNameType: { value: "str" },
+            command: { value: "", required: true },
+            commandType: { value: "str" }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "font-awesome/fa-arrow-circle-right",
+        label: function () {
+            if (this.name) {
+                return this.name;
+            }
+
+            if (this.command) {
+                var connection = RED.nodes.node(this.connection);
+                if (connection) {
+                    return `[${connection.name}] ${this.command}`;
+                } else {
+                    return `[${this.connectionName}] ${this.command}`;
+                }
+            }
+
+            return "keysight-command";
+        },
+        oneditprepare: function () {
+            $("#node-input-command").typedInput({
+                default:"str",
+                types: ["msg", "flow", "global", "str", "jsonata", "env"],
+                typeField: "#node-input-commandType"
+            })
+
+            $("#node-input-connectionName").typedInput({
+                default:"str",
+                types: ["msg", "flow", "global", "str", "jsonata", "env"],
+                typeField: "#node-input-connectionNameType"
+            })
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="keysight-command">
+    <div class="form-row">
+        <label for="node-input-connection">Connection</label>
+        <input type="text" id="node-input-connection" placeholder="Connection" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-connectionName">Connection name</label>
+        <input type="text" id="node-input-connectionName" placeholder="Connection name" />
+        <input type="hidden" id="node-input-connectionNameType">
+    </div>
+    <div class="form-row">
+        <label for="node-input-command">Command</label>
+        <input type="text" id="node-input-command" />
+        <input type="hidden" id="node-input-commandType">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="keysight-command">
+    <p>Executes SCPI command.</p>
+</script>
+
+<!--
+
+    keysight Query node
+
+-->
+
+<script type="text/javascript">
+    RED.nodes.registerType("keysight-query", {
+        category: "keysight",
+        color: "#87A980",
+        defaults: {
+            name: { value: "" },
+            connection: { value: "", type: "keysight-connection", required: false },
+            connectionName: { value: "", required: false },
+            connectionNameType: { value: "str" },
+            query: { value: "", required: true },
+            queryType: { value: "str" }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "font-awesome/fa-question",
+        label: function () {
+            if (this.name) {
+                return this.name;
+            }
+
+            if (this.query) {
+                var connection = RED.nodes.node(this.connection);
+                if (connection) {
+                    return `[${connection.name}] ${this.query}`;
+                } else {
+                    return `[${this.connectionName}] ${this.query}`;
+                }
+            }
+
+            return "keysight-query";
+        },
+        oneditprepare: function () {
+            $("#node-input-connectionName").typedInput({
+                default:"str",
+                types: ["msg", "flow", "global", "str", "jsonata", "env"],
+                typeField: "#node-input-connectionNameType"
+            })
+
+            $("#node-input-query").typedInput({
+                default:"str",
+                types: ["msg", "flow", "global", "str", "jsonata", "env"],
+                typeField: "#node-input-queryType"
+            })
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="keysight-query">
+    <div class="form-row">
+        <label for="node-input-connection">Connection</label>
+        <input type="text" id="node-input-connection" placeholder="Connection" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-connectionName">Connection name</label>
+        <input type="text" id="node-input-connectionName" placeholder="Connection name" />
+        <input type="hidden" id="node-input-connectionNameType">
+    </div>
+    <div class="form-row">
+        <label for="node-input-query">Query</label>
+        <input type="text" id="node-input-query">
+        <input type="hidden" id="node-input-queryType">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="keysight-query">
+    <p>Execute SCPI query.</p>
+</script>
+
+<!--
+
+    keysight Connect node
+
+-->
+
+<script type="text/javascript">
+    RED.nodes.registerType("keysight-connect", {
+        category: "keysight",
+        color: "#C7E9C0",
+        defaults: {
+            name: { value: "" },
+            connection: { value: "", type: "keysight-connection", required: true }
+        },
+        inputs: 1,
+        outputs: 0,
+        icon: "font-awesome/fa-server",
+        label: function () {
+            if (this.name) {
+                return this.name;
+            }
+
+            var connection = RED.nodes.node(this.connection);
+            if (connection) {
+                return `Connect [${connection.name}]`;
+            }
+
+            return "keysight-connect";
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="keysight-connect">
+    <div class="form-row">
+        <label for="node-input-connection">Connection</label>
+        <input type="text" id="node-input-connection" placeholder="Connection" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="keysight-connect">
+    <p>
+        Connects to EEZ keysight.
+    </p>
+    <p>
+        Before using this node, <b>Connection</b> parameter must be selected.
+        You can create a new connection or use existing one.
+        When defining a new connection, keysight <b>Host</b> name and SCPI <b>Port</b> (5025) must be defined.
+        Make sure host name can be resolved on the computer running Node-RED. If not, then manual editing of your hosts file could be required.
+    </p>
+    <p>
+        If you want to connect with keysight automatically when Node-RED starts, then check <b>Auto connect</b> checkbox.
+    </p>
+</script>
+
+<!--
+
+    keysight Disconnect node
+
+-->
+
+<script type="text/javascript">
+    RED.nodes.registerType("keysight-disconnect", {
+        category: "keysight",
+        color: "#FFAAAA",
+        defaults: {
+            name: { value: "" },
+            connection: { value: "", type: "keysight-connection", required: true }
+        },
+        inputs: 1,
+        outputs: 0,
+        icon: "font-awesome/fa-close",
+        label: function () {
+            if (this.name) {
+                return this.name;
+            }
+
+            var connection = RED.nodes.node(this.connection);
+            if (connection) {
+                return `Disconnect [${connection.name}]`;
+            }
+
+            return "keysight-disconnect";
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="keysight-disconnect">
+    <div class="form-row">
+        <label for="node-input-connection">Connection</label>
+        <input type="text" id="node-input-connection" placeholder="Connection" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="keysight-disconnect">
+    <p>Disconnects from EEZ keysight.</p>
+</script>
+
+
+<!--
+
+    keysight on-event
+
+-->
+
+<script type="text/javascript">
+    RED.nodes.registerType("keysight-on-event", {
+        category: "keysight",
+        color: "#FFAAAA",
+        defaults: {
+            name: { value: "" },
+            eventName: { value: "", required: true },
+            eventNameType: { value: "str" }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "link-in.svg",
+        label: function () {
+            if (this.name) {
+                return this.name;
+            }
+
+            if (this.eventName) {
+                return this.eventName;
+            }
+
+            return "keysight-on-event";
+        },
+        oneditprepare: function () {
+            $("#node-input-eventName").typedInput({
+                default:"str",
+                types: ["msg", "flow", "global", "str", "jsonata", "env"],
+                typeField: "#node-input-eventNameType"
+            })
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="keysight-on-event">
+    <div class="form-row">
+        <label for="node-input-command">Event name</label>
+        <input type="text" id="node-input-eventName" />
+        <input type="hidden" id="node-input-eventNameType">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="keysight-on-event">
+    <p>Emit event.</p>
+</script>
+
+<!--
+
+    keysight emit-event
+
+-->
+
+<script type="text/javascript">
+    RED.nodes.registerType("keysight-emit-event", {
+        category: "keysight",
+        color: "#FFAAAA",
+        defaults: {
+            name: { value: "" },
+            eventName: { value: "", required: true },
+            eventNameType: { value: "str" }
+        },
+        inputs: 1,
+        outputs: 0,
+        icon: "link-out.svg",
+        label: function () {
+            if (this.name) {
+                return this.name;
+            }
+
+            if (this.eventName) {
+                return this.eventName;
+            }
+
+            return "keysight-emit-event";
+        },
+        oneditprepare: function () {
+            $("#node-input-eventName").typedInput({
+                default:"str",
+                types: ["msg", "flow", "global", "str", "jsonata", "env"],
+                typeField: "#node-input-eventNameType"
+            })
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="keysight-emit-event">
+    <div class="form-row">
+        <label for="node-input-command">Event name</label>
+        <input type="text" id="node-input-eventName" />
+        <input type="hidden" id="node-input-eventNameType">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/html" data-help-name="keysight-emit-event">
+    <p>Listen for event.</p>
+</script>
