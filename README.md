@@ -3,6 +3,8 @@
 This is a fork of the node-red-contrib-bb3 package, modified to be compatible with Keysight products as well.
 The difference is between bb3 and Keysight at the query messages. The Keysight sendign the messages with \n instead of \r\n
 
+The package completely renamed to be able to install the original EEZ BB3 package in parallel with the forked keysight package.
+
 ## Install
 
 To install - either use the manage palette option in the editor, or change to your Node-RED user directory.
@@ -19,7 +21,7 @@ Supported keysight related nodes:
 - `keysight-command`: Executes SCPI command.
 - `keysight-query`: Execute SCPI query.
 
-Also, there are two nodes for simple event based communication inside Node-RED flows. You can emit events with `bb3-emit-event` and catch it with `bb3-on-event` from any node in your project.
+Also, there are two nodes for simple event based communication inside Node-RED flows. You can emit events with `keysight-emit-event` and catch it with `keysight-on-event` from any node in your project.
 
 ----- ORIGINAL REPOSITORY README -----
 
