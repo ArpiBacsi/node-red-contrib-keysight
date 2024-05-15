@@ -1,7 +1,27 @@
 # node-red-contrib-keysight
 
 This is a fork of the node-red-contrib-bb3 package, modified to be compatible with Keysight products as well.
-The difference is between bb3 and Keysight at the query messages. The Keysight sendign the messages with \n instead of \r\n 
+The difference is between bb3 and Keysight at the query messages. The Keysight sendign the messages with \n instead of \r\n
+
+## Install
+
+To install - either use the manage palette option in the editor, or change to your Node-RED user directory.
+
+        cd ~/.node-red
+        npm install node-red-contrib-keysight
+
+## Features
+
+Supported keysight related nodes:
+
+- `keysight-connect`: Connects to keysight using TCP.
+- `keysight-disconnect`: Disconnects from keysight.
+- `keysight-command`: Executes SCPI command.
+- `keysight-query`: Execute SCPI query.
+
+Also, there are two nodes for simple event based communication inside Node-RED flows. You can emit events with `bb3-emit-event` and catch it with `bb3-on-event` from any node in your project.
+
+----- ORIGINAL REPOSITORY README -----
 
 # node-red-contrib-bb3
 
